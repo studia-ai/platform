@@ -1,0 +1,15 @@
+type Query {
+  getTransaction(transactionId: String!): JSON
+    @rest(
+      method: POST
+      endpoint: "https://mainnet.helius-rpc.com/?api-key=7118fbbf-c19e-4575-b152-7acf394fa47e"
+      postbody: """
+      {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "getTransaction",
+        "params": ["$transactionId", "json"]
+      }
+      """
+    )
+}

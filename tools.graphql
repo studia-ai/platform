@@ -1,0 +1,44 @@
+extend type Query {
+  wikipediaTool: TC_GraphQL
+    @supplies(query: "tc_tools")
+    @materializer(
+      query: "tc_graphql_tool"
+      arguments: [
+        { name: "name", const: "wikipedia" }
+        { name: "description", const: "Retrieve information from Wikipedia." }
+        { name: "fields", const: "search|page" }
+      ]
+    )
+  jokeTool: TC_GraphQL
+    @supplies(query: "tc_tools")
+    @materializer(
+      query: "tc_graphql_tool"
+      arguments: [
+        { name: "name", const: "joke" }
+        { name: "description", const: "Retrieve jokes from JokeAPI. Provide any category." }
+        { name: "fields", const: "getJoke" }
+      ]
+    )
+  youtubeTranscriptTool: TC_GraphQL
+    @supplies(query: "tc_tools")
+    @materializer(
+      query: "tc_graphql_tool"
+      arguments: [
+        { name: "name", const: "youtube_transcript" }
+        { name: "description", const: "Retrieve transcripts for a given YouTube video. The videoUrl should be in the format https://www.youtube.com/watch?v=VIDEO_ID" }
+        { name: "fields", const: "transcript" }
+      ]
+    )
+  heliusTool: TC_GraphQL
+    @supplies(query: "tc_tools")
+    @materializer(
+      query: "tc_graphql_tool"
+      arguments: [
+        { name: "name", const: "helius" }
+        { name: "description", const: "Retrieve transaction details from Helius." }
+        { name: "fields", const: "getTransaction" }
+      ]
+    )
+} 
+
+    

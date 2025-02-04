@@ -18,15 +18,15 @@ export const POPULAR_MODELS: OpenRouterModel[] = [
   //   promptPrice: 0,
   //   completionPrice: 0
   // },
-  { 
-    id: "qwen/qwen-turbo", 
-    name: "Qwen-Turbo", 
-    category: "Qwen",
-    description: "Qwen-Turbo, based on Qwen2.5, is a 1M context model that provides fast speed and low cost, suitable for simple tasks.",
-    contextWindow: 1000000,
-    promptPrice: 0.05,
-    completionPrice: 0.2
-  },
+  // { 
+  //   id: "qwen/qwen-turbo", 
+  //   name: "Qwen-Turbo", 
+  //   category: "Qwen",
+  //   description: "Qwen-Turbo, based on Qwen2.5, is a 1M context model that provides fast speed and low cost, suitable for simple tasks.",
+  //   contextWindow: 1000000,
+  //   promptPrice: 0.05,
+  //   completionPrice: 0.2
+  // },
   { 
     id: "anthropic/claude-3.5-sonnet", 
     name: "Claude 3 Sonnet", 
@@ -63,22 +63,22 @@ export const POPULAR_MODELS: OpenRouterModel[] = [
     promptPrice: 0.01,
     completionPrice: 0.03
   },
-  { 
-    id: "meta-llama/llama-3.3-70b-instruct", 
-    name: "Llama 3.3 70B Instruct", 
-    category: "Meta",
-    description: "Finance and legal expert",
-    contextWindow: 4096,
-    promptPrice: 0.0007,
-    completionPrice: 0.0009
-  },
-  { 
-    id: "mistralai/mistral-nemo", 
-    name: "Mistral Nemo", 
-    category: "Mistral",
-    description: "Multilingual trivia specialist",
-    contextWindow: 32000,
-    promptPrice: 0.002,
-    completionPrice: 0.006
-  }
+  // { 
+  //   id: "meta-llama/llama-3.3-70b-instruct", 
+  //   name: "Llama 3.3 70B Instruct", 
+  //   category: "Meta",
+  //   description: "Finance and legal expert",
+  //   contextWindow: 4096,
+  //   promptPrice: 0.0007,
+  //   completionPrice: 0.0009
+  // },
+  // { 
+  //   id: "mistralai/mistral-nemo", 
+  //   name: "Mistral Nemo", 
+  //   category: "Mistral",
+  //   description: "Multilingual trivia specialist",
+  //   contextWindow: 32000,
+  //   promptPrice: 0.002,
+  //   completionPrice: 0.006
+  // }
 ]; 

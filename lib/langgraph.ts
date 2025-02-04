@@ -6,8 +6,6 @@ import {
   SystemMessage,
 } from "@langchain/core/messages";
 import { ChatOpenAI } from "@langchain/openai";
-import { ChatDeepSeek } from '@langchain/deepseek';
-// import { ChatAnthropic } from "@langchain/anthropic";
 import {
   END,
   START,

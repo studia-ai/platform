@@ -30,7 +30,7 @@ export default function DashboardPage() {
         draggable: true,
         theme: "dark",
       });
-      router.push(`/(platform)/dashboard/chat/${chatId}`);
+      router.push(`/dashboard/chat/${chatId}`);
       closeMobileNav();
 
     } catch (error) {

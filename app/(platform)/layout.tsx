@@ -12,14 +12,16 @@ export default function DashboardLayout({
 }) {
   return (
     <NavigationProvider>
-      <div className="flex h-screen">
+      <div className="flex h-screen bg-white text-gray-900">
         <Authenticated>
           <Sidebar />
         </Authenticated>
 
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col min-w-0 bg-white">
           <Header />
-          <main className="flex-1 overflow-y-auto">{children}</main>
+          <main className="flex-1 overflow-y-auto bg-white text-gray-900">
+            {children}
+          </main>
         </div>
       </div>
     </NavigationProvider>

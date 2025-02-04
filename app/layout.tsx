@@ -18,6 +18,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Check if the current path includes platform
+  const isPlatform = typeof window !== 'undefined' && window.location.pathname.includes('dashboard');
+
   return (
     <ConvexClientProvider>
       <html lang="en" suppressHydrationWarning>
@@ -27,8 +30,8 @@ export default function RootLayout({
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme={isPlatform ? "light" : "system"}
+            enableSystem={!isPlatform}
             disableTransitionOnChange
           >
             <main className="bg-slate-100">

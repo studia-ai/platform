@@ -42,7 +42,7 @@ export default async function ChatPage({ params }: ChatPageProps) {
     const initialMessages = await convex.query(api.messages.list, { chatId });
 
     return (
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden text-gray-900 dark:text-gray-100">
         <ChatInterface chatId={chatId} initialMessages={initialMessages} />
       </div>
     );

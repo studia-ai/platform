@@ -362,10 +362,10 @@ export default function ChatInterface({
         <div className="max-w-5xl mx-auto flex items-center gap-2">
           <span className="text-sm text-gray-500">Model:</span>
           <Select value={selectedModel} onValueChange={handleModelChange}>
-            <SelectTrigger className="w-[200px] bg-white/50">
+            <SelectTrigger className="flex h-9 items-center justify-between whitespace-nowrap rounded-md border border-input px-3 py-2 text-sm shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 w-[200px] bg-white text-gray-900">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white text-gray-900">
               {Object.entries(groupBy(POPULAR_MODELS, 'category')).map(([category, models]) => (
                 <div key={category}>
                   <div className="px-2 py-1.5 text-sm font-semibold text-gray-500">
@@ -375,10 +375,10 @@ export default function ChatInterface({
                     <SelectItem
                       key={model.id}
                       value={model.id}
-                      className="py-2 px-4 text-sm cursor-pointer hover:bg-gray-100"
+                      className="py-2 px-4 text-sm cursor-pointer hover:bg-gray-100 text-gray-900"
                     >
                       <div className="flex flex-col">
-                        <span className="font-medium">{model.name}</span>
+                        <span className="font-medium text-gray-900">{model.name}</span>
                         {model.description && (
                           <span className="text-xs text-gray-500">{model.description}</span>
                         )}
@@ -405,7 +405,8 @@ export default function ChatInterface({
                         rounded-lg sm:rounded-xl md:rounded-2xl border border-gray-200 
                         focus:outline-none focus:ring-2 focus:ring-purple-500 
                         focus:border-transparent pr-12 sm:pr-16 bg-white/50 
-                        placeholder:text-gray-500 text-sm sm:text-base"
+                        placeholder:text-gray-500 text-gray-900
+                        text-sm sm:text-base"
               disabled={isLoading}
             />
             <div className="absolute right-1.5 sm:right-2">

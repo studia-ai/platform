@@ -241,23 +241,26 @@ const MobileNav = ({ navItems, visible }: NavbarProps) => {
           damping: 50,
         }}
         className={cn(
-          "flex relative flex-col lg:hidden w-full justify-between items-center bg-transparent   max-w-[calc(100vw-2rem)] mx-auto px-0 py-2 z-50",
+          "flex relative flex-col lg:hidden w-full justify-between items-center bg-transparent max-w-[calc(100vw-2rem)] mx-auto px-0 py-2 z-50",
           visible && "bg-white/80 dark:bg-neutral-950/80"
         )}
       >
         <div className="flex flex-row justify-between items-center w-full">
           <Logo />
-          {open ? (
-            <IconX
-              className="text-black dark:text-white"
-              onClick={() => setOpen(!open)}
-            />
-          ) : (
-            <IconMenu2
-              className="text-black dark:text-white"
-              onClick={() => setOpen(!open)}
-            />
-          )}
+          <div className="flex items-center gap-2">
+            <ModeToggle />
+            {open ? (
+              <IconX
+                className="text-black dark:text-white"
+                onClick={() => setOpen(!open)}
+              />
+            ) : (
+              <IconMenu2
+                className="text-black dark:text-white"
+                onClick={() => setOpen(!open)}
+              />
+            )}
+          </div>
         </div>
 
         <AnimatePresence>
@@ -280,26 +283,68 @@ const MobileNav = ({ navItems, visible }: NavbarProps) => {
                   <motion.span className="block">{navItem.name} </motion.span>
                 </Link>
               ))}
-              <Button
-                as={Link}
-                onClick={() => setOpen(false)}
-                href={CONSTANTS.LOGIN_LINK}
-                variant="primary"
-                className="block md:hidden w-full"
-              >
-                <SignInButton mode="modal"></SignInButton>
-              </Button>
-              {/* <Button
-                data-cal-namespace={calOptions.namespace}
-                data-cal-link={`manu-arora-vesr9s/chat-with-manu-demo`}
-                data-cal-config={`{"layout":"${calOptions.layout}"}`}
-                as="button"
-                onClick={() => setOpen(false)}
-                variant="primary"
-                className="block md:hidden w-full"
-              >
-                Book
-              </Button> */}
+              
+              <AnimatePresence mode="popLayout" initial={false}>
+                <SignedIn>
+                  <motion.div
+                    initial={{
+                      x: 100,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      x: 0,
+                      opacity: [0, 0, 1],
+                    }}
+                    exit={{
+                      x: 100,
+                      opacity: [0, 0, 0],
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <Link href="/dashboard" onClick={() => setOpen(false)}>
+                      <Button
+                        variant="secondary"
+                        className="w-full"
+                      >
+                        Dashboard
+                      </Button>
+                    </Link>
+                  </motion.div>
+                </SignedIn>
+                <SignedOut>
+                  <motion.div
+                    initial={{
+                      x: 100,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      x: 0,
+                      opacity: [0, 0, 1],
+                    }}
+                    exit={{
+                      x: 100,
+                      opacity: [0, 0, 0],
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <SignInButton mode="modal" fallbackRedirectUrl={"/dashboard"} forceRedirectUrl={"/dashboard"}>
+                      <Button
+                        variant="secondary"
+                        className="w-full"
+                        onClick={() => setOpen(false)}
+                      >
+                        Sign In
+                      </Button>
+                    </SignInButton>
+                  </motion.div>
+                </SignedOut>
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>

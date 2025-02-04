@@ -1,5 +1,7 @@
 import { Footer } from "./components/footer";
 import { Navbar } from "./components/navbar";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MarketingLayout = ({
   children
@@ -15,6 +17,7 @@ const MarketingLayout = ({
         </div>
       </main>
       <Footer />
+      <ToastContainer />
     </div>
   );
 };

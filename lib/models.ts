@@ -9,6 +9,24 @@ export interface OpenRouterModel {
 }
 
 export const POPULAR_MODELS: OpenRouterModel[] = [
+  // { 
+  //   id: "deepseek/deepseek-r1", 
+  //   name: "DeepSeek R1", 
+  //   category: "DeepSeek",
+  //   description: "Performance on par with OpenAI o1, fully open-sourced.",
+  //   contextWindow: 128000,
+  //   promptPrice: 0,
+  //   completionPrice: 0
+  // },
+  { 
+    id: "qwen/qwen-turbo", 
+    name: "Qwen-Turbo", 
+    category: "Qwen",
+    description: "Qwen-Turbo, based on Qwen2.5, is a 1M context model that provides fast speed and low cost, suitable for simple tasks.",
+    contextWindow: 1000000,
+    promptPrice: 0.05,
+    completionPrice: 0.2
+  },
   { 
     id: "anthropic/claude-3.5-sonnet", 
     name: "Claude 3 Sonnet", 

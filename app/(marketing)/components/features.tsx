@@ -1,10 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import createGlobe from "cobe";
+import Beam from "./ui/Beam";
+import { ClipboardIcon, CheckIcon } from "lucide-react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Features() {
   return (
@@ -12,6 +16,7 @@ export function Features() {
       id="features"
       className="w-full  mx-auto bg-white dark:bg-neutral-950 py-20 px-4 md:px-8"
     >
+      <BeamContainer />
       <Header>
         <h2 className="font-sans text-bold text-xl text-center md:text-4xl w-fit mx-auto font-bold tracking-tight text-neutral-8000 dark:text-neutral-100 text-neutral-800">
           AI made easy
@@ -495,5 +500,94 @@ const Card = ({
     >
       {children}
     </motion.div>
+  );
+};
+
+const BeamContainer = () => {
+  const [isCopied, setIsCopied] = useState(false);
+  const caValue = "2bz1pAVAWHk1qqtLx7oB5oy1PVQiQvtsqgaBbcqQpump";
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(caValue);
+      setIsCopied(true);
+      toast.success("CA copied to clipboard!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      toast.error("Failed to copy CA", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
+
+  return (
+    <div
+      style={{
+        perspective: "1000px",
+      }}
+      className="mb-12"
+    >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0 }}
+        variants={{
+          hidden: { opacity: 0, y: 0, scale: 1, rotateX: 45 },
+          visible: {
+            opacity: 1,
+            y: [0, -20, 0],
+            scale: [1, 1.2, 1],
+            rotateX: 0,
+          },
+        }}
+        className="h-60 w-[90%] max-w-[600px] mx-auto rounded-md bg-gradient-to-br from-slate-800 to-slate-800/[0.9] relative overflow-hidden"
+      >
+        <Beam className="top-0" />
+        <Beam className="top-0" />
+
+        <div className="absolute inset-0 flex items-center justify-center text-center p-4 md:p-6">
+          <div className="w-full">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 break-all">
+              <span className="text-blue-400 font-mono whitespace-nowrap">CA: </span>
+              <span className="text-gray-300 text-xs sm:text-base">{caValue}</span>
+              <button
+                onClick={handleCopy}
+                className="ml-2 p-1.5 rounded-md hover:bg-white/10 transition-colors"
+              >
+                {isCopied ? (
+                  <CheckIcon className="h-4 w-4 text-green-400" />
+                ) : (
+                  <ClipboardIcon className="h-4 w-4 text-gray-400 hover:text-gray-300" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="z-0">
+          <div className="absolute bottom-0 right-4 mt-[2px] flex h-8 items-end overflow-hidden">
+            <div className="flex -mb-px h-[2px] w-full -scale-x-100">
+              <div className="w-full flex-none blur-sm [background-image:linear-gradient(90deg,rgba(56,189,248,0)_0%,#0EA5E9_32.29%,rgba(236,72,153,0.3)_67.19%,rgba(236,72,153,0)_100%)]"></div>
+              <div className="-ml-[100%] w-full flex-none blur-[1px] [background-image:linear-gradient(90deg,rgba(56,189,248,0)_0%,#0EA5E9_32.29%,rgba(236,72,153,0.3)_67.19%,rgba(236,72,153,0)_100%)]"></div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 };

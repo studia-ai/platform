@@ -139,23 +139,23 @@ export default function DashboardPage() {
           </div>
 
           {/* API Key Card */}
-          <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl ring-1 ring-gray-200/50 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-500">CA:</span>
-                <code className="px-2 py-1 bg-gray-50 rounded-md text-sm font-mono text-gray-800">
+          <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-2xl ring-1 ring-gray-200/50 shadow-sm">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-sm font-medium text-gray-500 shrink-0">CA:</span>
+                <code className="px-2 py-1 bg-gray-50 rounded-md text-[10px] sm:text-sm font-mono text-gray-800 truncate">
                   {CONTRACT_ADDRESS}
                 </code>
               </div>
               <button
                 onClick={handleCopyClick}
-                className="p-2 hover:bg-gray-50 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-50 rounded-lg transition-colors shrink-0"
                 aria-label="Copy API key"
               >
                 {isCopied ? (
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
                 ) : (
-                  <ClipboardCopy className="w-5 h-5 text-gray-500 hover:text-gray-700" />
+                  <ClipboardCopy className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 hover:text-gray-700" />
                 )}
               </button>
             </div>

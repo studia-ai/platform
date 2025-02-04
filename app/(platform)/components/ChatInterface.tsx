@@ -81,6 +81,42 @@ export default function ChatInterface({
     return `---START---\n${terminalHtml}\n---END---`;
   };
 
+  const formatModelLog = (
+    type: "start" | "end",
+    modelId: string,
+    stats?: { tokenUsage?: any }
+  ) => {
+    let content = "";
+    if (type === "start") {
+      content = `🤖 Starting OpenRouter call for model: ${modelId}`;
+    } else {
+      content = `🤖 End OpenRouter call ${
+        stats
+          ? JSON.stringify(
+              {
+                generations: "[ [ [ChatGenerationChunk] ] ]",
+                llmOutput: { tokenUsage: stats.tokenUsage },
+              },
+              null,
+              2
+            )
+          : ""
+      }`;
+    }
+
+    const terminalHtml = `<div class="bg-[#1e1e1e] text-white font-mono p-2 rounded-md my-2 overflow-x-auto whitespace-normal max-w-[600px]">
+      <div class="flex items-center gap-1.5 border-b border-gray-700 pb-1">
+        <span class="text-blue-500">●</span>
+        <span class="text-blue-500">●</span>
+        <span class="text-blue-500">●</span>
+        <span class="text-gray-400 ml-1 text-sm">~/openrouter-logs</span>
+      </div>
+      <pre class="text-blue-400 mt-0.5 whitespace-pre-wrap overflow-x-auto">${content}</pre>
+    </div>`;
+
+    return `---START---\n${terminalHtml}\n---END---`;
+  };
+
   /**
    * Processes a ReadableStream from the SSE response.
    * This function continuously reads chunks of data from the stream until it's done.
@@ -127,6 +163,10 @@ export default function ChatInterface({
     let fullResponse = "";
 
     try {
+      // Add initial model log
+      fullResponse += formatModelLog("start", selectedModel);
+      setStreamedResponse(fullResponse);
+
       // Prepare chat history and new message for API
       const requestBody: ChatRequestBody = {
         messages: messages.map((msg) => ({
@@ -161,10 +201,22 @@ export default function ChatInterface({
         for (const message of messages) {
           switch (message.type) {
             case StreamMessageType.Token:
-              // Handle streaming tokens (normal text response)
               if ("token" in message) {
-                fullResponse += message.token;
-                setStreamedResponse(fullResponse);
+                // Check if the token contains token usage information
+                if (message.token.includes("tokenUsage")) {
+                  try {
+                    const stats = JSON.parse(message.token);
+                    fullResponse += formatModelLog("end", selectedModel, stats);
+                    setStreamedResponse(fullResponse);
+                  } catch (e) {
+                    // If not parseable JSON, treat as normal token
+                    fullResponse += message.token;
+                    setStreamedResponse(fullResponse);
+                  }
+                } else {
+                  fullResponse += message.token;
+                  setStreamedResponse(fullResponse);
+                }
               }
               break;
 
@@ -206,8 +258,20 @@ export default function ChatInterface({
               break;
 
             case StreamMessageType.Error:
-              // Handle error messages from the stream
               if ("error" in message) {
+                // Display error message directly in the chat
+                setStreamedResponse(message.error);
+                
+                // Save error message to chat history
+                const errorMessage: Doc<"messages"> = {
+                  _id: `temp_error_${Date.now()}`,
+                  chatId,
+                  content: message.error,
+                  role: "assistant",
+                  createdAt: Date.now(),
+                } as Doc<"messages">;
+
+                setMessages((prev) => [...prev, errorMessage]);
                 throw new Error(message.error);
               }
               break;
@@ -237,25 +301,26 @@ export default function ChatInterface({
         }
       });
     } catch (error) {
-      // Enhanced error handling
       console.error("Error sending message:", error);
-
-      // Check if error is an instance of TypeError and log more details
-      if (error instanceof TypeError) {
-        console.error("TypeError details:", error.message);
-      }
 
       // Remove the optimistic user message if there was an error
       setMessages((prev) =>
         prev.filter((msg) => msg._id !== optimisticUserMessage._id)
       );
-      setStreamedResponse(
-        formatTerminalOutput(
-          "error",
-          "Failed to process message",
-          error instanceof Error ? error.message : "Unknown error"
-        )
-      );
+
+      // If the error wasn't already displayed through the stream
+      if (!streamedResponse) {
+        const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+        setStreamedResponse(`
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <div class="flex items-center">
+    <svg class="h-5 w-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    </svg>
+    <span class="text-red-700">${errorMessage}</span>
+  </div>
+</div>`);
+      }
     } finally {
       setIsLoading(false);
     }

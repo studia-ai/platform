@@ -4,6 +4,8 @@ import Sidebar from "@/app/(platform)/components/Sidebar";
 import Header from "@/app/(platform)/components/Header";
 import { NavigationProvider } from "@/lib/context/navigation";
 import { Authenticated } from "convex/react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DashboardLayout({
   children,
@@ -24,6 +26,7 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
+      <ToastContainer />
     </NavigationProvider>
   );
 }

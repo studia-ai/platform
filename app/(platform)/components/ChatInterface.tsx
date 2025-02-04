@@ -239,7 +239,7 @@ export default function ChatInterface({
               return;
 
             // Handle the custom end_of_call event
-            case "end_of_call":
+            case StreamMessageType.EndOfCall:
               setStreamedResponse((prev) => prev + "\n\n--- End of Call ---");
               break;
           }

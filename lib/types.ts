@@ -20,6 +20,7 @@ export enum StreamMessageType {
   ToolStart = "tool_start",
   ToolEnd = "tool_end",
   ModelChange = "model_change",
+  EndOfCall = "end_of_call",
 }
 
 export interface BaseStreamMessage {
@@ -61,6 +62,10 @@ export interface ModelChangeMessage {
   model: string;
 }
 
+export interface EndOfCallMessage extends BaseStreamMessage {
+  type: StreamMessageType.EndOfCall;
+}
+
 export type StreamMessage =
   | TokenMessage
   | ErrorMessage
@@ -68,7 +73,8 @@ export type StreamMessage =
   | DoneMessage
   | ToolStartMessage
   | ToolEndMessage
-  | ModelChangeMessage;
+  | ModelChangeMessage
+  | EndOfCallMessage;
 
 export interface ChatRequestBody {
   messages: Message[];

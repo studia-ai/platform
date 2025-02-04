@@ -93,7 +93,11 @@ export default function ChatInterface({
     try {
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          // Notify the user when the stream ends
+          setStreamedResponse((prev) => prev + "\n\n--- End of Response ---");
+          break;
+        }
         await onChunk(new TextDecoder().decode(value));
       }
     } finally {
@@ -233,6 +237,11 @@ export default function ChatInterface({
               setMessages((prev) => [...prev, assistantMessage]);
               setStreamedResponse("");
               return;
+
+            // Handle the custom end_of_call event
+            case "end_of_call":
+              setStreamedResponse((prev) => prev + "\n\n--- End of Call ---");
+              break;
           }
         }
       });

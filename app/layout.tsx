@@ -20,15 +20,17 @@ export default function RootLayout({
 }>) {
   return (
     <ConvexClientProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={cn("antialiased dark:bg-neutral-900 bg-neutral-50", inter.className)}
+          className={cn("antialiased", inter.className)}
+          suppressHydrationWarning
         >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
+            suppressHydrationWarning
           >
             <main className="bg-slate-100">
               <div data-marketing="true" className="relative h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">

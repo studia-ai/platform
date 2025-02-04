@@ -26,6 +26,8 @@ interface NavbarProps {
   visible: boolean;
 }
 
+const MotionDiv = motion.div;
+
 export const Navbar = () => {
   const navItems: { name: string; link: string }[] = [
     // {
@@ -58,10 +60,14 @@ export const Navbar = () => {
   });
 
   return (
-    <motion.div ref={ref} className="w-full fixed top-0 inset-x-0 z-50">
+    <MotionDiv
+      ref={ref}
+      className="w-full fixed top-0 inset-x-0 z-50"
+      suppressHydrationWarning
+    >
       <DesktopNav visible={visible} navItems={navItems} />
       <MobileNav visible={visible} navItems={navItems} />
-    </motion.div>
+    </MotionDiv>
   );
 };
 
@@ -152,7 +158,7 @@ const DesktopNav = ({ navItems, visible }: NavbarProps) => {
                 variant="secondary"
                 className="hidden md:block "
               >
-                <SignOutButton></SignOutButton>
+                Dashboard
               </Button>
             </motion.div>
           </SignedIn>

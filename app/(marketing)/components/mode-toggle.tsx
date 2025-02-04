@@ -6,35 +6,21 @@ import { useState, useEffect } from "react";
 
 export function ModeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [systemTheme, setSystemTheme] = useState<"light" | "dark">("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setSystemTheme(mediaQuery.matches ? "dark" : "light");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setSystemTheme(e.matches ? "dark" : "light");
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    setMounted(true);
   }, []);
+
+  if (!mounted) {
+    return null; // Avoid rendering anything until mounted
+  }
 
   const SWITCH = () => {
     const currentTheme = theme === "system" ? resolvedTheme : theme;
     if (!currentTheme) return;
 
-    switch (currentTheme) {
-      case "light":
-        setTheme("dark");
-        break;
-      case "dark":
-        setTheme("light");
-        break;
-      default:
-        setTheme(systemTheme === "light" ? "dark" : "light");
-        break;
-    }
+    setTheme(currentTheme === "dark" ? "light" : "dark");
   };
 
   return (

@@ -30,7 +30,6 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-            suppressHydrationWarning
           >
             <main className="bg-slate-100">
               <div data-marketing="true" className="relative h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">

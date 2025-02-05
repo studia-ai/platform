@@ -13,9 +13,10 @@ type TokenInfo {
 type Query {
   getTokenInfo(tokenAddress: String!): TokenInfo
     @rest(
+      method: GET
       endpoint: "https://data.solanatracker.io/tokens/$tokenAddress"
       headers: [
-        { name: "x-api-key", value: "$SOLANA_TRACKER_API_KEY" }
+        { name: "x-api-key", value: "$env.SOLANA_TRACKER_API_KEY" }
         { name: "Accept", value: "application/json" }
       ]
     )

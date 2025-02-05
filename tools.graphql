@@ -29,14 +29,14 @@ extend type Query {
         { name: "fields", const: "transcript" }
       ]
     )
-  heliusTool: TC_GraphQL
+  solanaTrackerTool: TC_GraphQL
     @supplies(query: "tc_tools")
     @materializer(
       query: "tc_graphql_tool"
       arguments: [
-        { name: "name", const: "helius" }
-        { name: "description", const: "Retrieve transaction details from Helius." }
-        { name: "fields", const: "getTransaction" }
+        { name: "name", const: "solana_tracker" }
+        { name: "description", const: "Retrieve token information from Solana Tracker API. Provide the token address to get details including market data, pools, and risks." }
+        { name: "fields", const: "getTokenInfo" }
       ]
     )
 } 

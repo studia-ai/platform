@@ -5,7 +5,7 @@ schema
       "joke/index.graphql"
       "tools.graphql"
       "youtube_transcript/index.graphql"
-      "helius/index.graphql"
+      "solana_tracker/index.graphql"
     ]
   ) {
   query: Query

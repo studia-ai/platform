@@ -1,0 +1,22 @@
+type TokenInfo {
+  name: String
+  symbol: String
+  price: Float
+  marketCap: Float
+  volume24h: Float
+  supply: Float
+  holders: Int
+  risks: [String]
+  pools: [String]
+}
+
+type Query {
+  getTokenInfo(tokenAddress: String!): TokenInfo
+    @rest(
+      endpoint: "https://data.solanatracker.io/tokens/$tokenAddress"
+      headers: [
+        { name: "x-api-key", value: "$SOLANA_TRACKER_API_KEY" }
+        { name: "Accept", value: "application/json" }
+      ]
+    )
+} 

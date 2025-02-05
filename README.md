@@ -69,14 +69,12 @@ Studia.ai is a sophisticated AI agent platform built for research and blockchain
 
 **1. Clone the repository**
 
-    git clone https://github.com/yourusername/studia-ai.git
+    git clone https://github.com/studia-ai/studia-ai.git
     cd studia-ai
 
 **2. Install dependencies**
 
-    npm install
-    # or
-    yarn install
+    pnpm install
 
 **3. Set up environment variables**
 
@@ -88,29 +86,14 @@ Create a `.env` file in the root directory:
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
     CONVEX_DEPLOYMENT=your_convex_deployment
     IBM_WATSONX_API_KEY=your_watsonx_api_key
+    SOLANA_TRACKER_API_KEY=your_solana_tracker_api_key
+    OPENROUTER_API_KEY=your_openrouter_api_key
 
 **4. Run the development server**
 
-    npm run dev
-    # or
-    yarn dev
+    pnpm dev
 
 The application will be available at `http://localhost:3000`
-
-## Project Structure
-
-    studia-ai/
-    ├── app/                 # Next.js app directory
-    │   ├── dashboard/      # Dashboard pages
-    │   ├── layout.tsx      # Root layout
-    │   └── page.tsx        # Landing page
-    ├── components/         # React components
-    ├── convex/            # Convex backend
-    ├── lib/               # Utility functions
-    │   ├── context/       # React contexts
-    │   ├── constants/     # Constants and configs
-    │   └── utils/         # Helper functions
-    └── public/            # Static assets
 
 ## Features in Development
 - 🔗 **Solana Blockchain Integration**

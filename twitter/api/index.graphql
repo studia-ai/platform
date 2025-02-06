@@ -17,19 +17,14 @@ type Query {
       method: POST
       endpoint: "https://api.twitter.com/2/tweets"
       headers: [
-        { name: "Authorization", value: "Bearer ${env.TWITTER_BEARER_TOKEN}" }
+        { name: "Authorization", value: "Bearer ${TWITTER_BEARER_TOKEN}" }
         { name: "Content-Type", value: "application/json" }
       ]
+      contenttype: "application/json"
       postbody: """
         {
           "text": {{.Get "text"}}
         }
       """
-      transforms: [
-        {
-          pathpattern: [],
-          editor: "jq:."
-        }
-      ]
     )
 } 

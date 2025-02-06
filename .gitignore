@@ -28,6 +28,14 @@
 .env.test.local
 .env.production.local
 
+# API keys and sensitive data
+solana_tracker/api/
+solana_tracker/api/*
+**/solana_tracker/api/index.graphql
+twitter/api/
+twitter/api/*
+**/twitter/api/index.graphql
+
 # misc
 .DS_Store
 *.pem

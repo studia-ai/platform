@@ -21,6 +21,12 @@ export default async function ChatPage({ params }: ChatPageProps) {
     redirect("/");
   }
 
+  // Add validation for the chatId parameter
+  if (!chatId || chatId === "dashboard") {
+    // Redirect to dashboard or show error
+    redirect("/dashboard");
+  }
+
   try {
     // Get Convex client and fetch chat and messages
     const convex = getConvexClient();

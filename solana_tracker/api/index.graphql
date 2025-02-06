@@ -1,17 +1,107 @@
-type TokenInfo {
+type Creator {
+  name: String
+  site: String
+}
+
+type Extensions {
+  twitter: String
+  telegram: String
+}
+
+type TokenDetails {
   name: String
   symbol: String
-  price: Float
-  marketCap: Float
-  volume24h: Float
-  supply: Float
-  holders: Int
-  risks: [String]
-  pools: [String]
+  mint: String
+  uri: String
+  decimals: Int
+  image: String
+  description: String
+  extensions: Extensions
+  tags: [String]
+  creator: Creator
+  hasFileMetaData: Boolean
+}
+
+type Liquidity {
+  quote: Float
+  usd: Float
+}
+
+type Price {
+  quote: Float
+  usd: Float
+}
+
+type MarketCap {
+  quote: Float
+  usd: Float
+}
+
+type Security {
+  freezeAuthority: String
+  mintAuthority: String
+}
+
+type Pool {
+  liquidity: Liquidity
+  price: Price
+  tokenSupply: Float
+  lpBurn: Float
+  tokenAddress: String
+  marketCap: MarketCap
+  market: String
+  quoteToken: String
+  decimals: Int
+  security: Security
+  lastUpdated: Float
+  createdAt: Float
+  poolId: String
+}
+
+type PriceChange {
+  priceChangePercentage: Float
+}
+
+type Events {
+  oneMin: PriceChange
+  fiveMin: PriceChange
+  fifteenMin: PriceChange
+  thirtyMin: PriceChange
+  oneHour: PriceChange
+  twoHour: PriceChange
+  threeHour: PriceChange
+  fourHour: PriceChange
+  fiveHour: PriceChange
+  sixHour: PriceChange
+  twelveHour: PriceChange
+  twentyFourHour: PriceChange
+}
+
+type Risk {
+  name: String
+  description: String
+  level: String
+  score: Int
+}
+
+type RiskInfo {
+  rugged: Boolean
+  risks: [Risk]
+  score: Int
+}
+
+type TokenResponse {
+  token: TokenDetails
+  pools: [Pool]
+  events: Events
+  risk: RiskInfo
+  buys: Int
+  sells: Int
+  txns: Int
 }
 
 type Query {
-  getTokenInfo(tokenAddress: String!): TokenInfo
+  getTokenInfo(tokenAddress: String!): JSON
     @rest(
       method: GET
       endpoint: "https://data.solanatracker.io/tokens/$tokenAddress"
@@ -19,5 +109,6 @@ type Query {
         { name: "x-api-key", value: "$env.SOLANA_TRACKER_API_KEY" }
         { name: "Accept", value: "application/json" }
       ]
+      resultroot: "token"
     )
 } 

@@ -39,6 +39,16 @@ extend type Query {
         { name: "fields", const: "getTokenInfo" }
       ]
     )
+  twitterTool: TC_GraphQL
+    @supplies(query: "tc_tools")
+    @materializer(
+      query: "tc_graphql_tool"
+      arguments: [
+        { name: "name", const: "twitter" }
+        { name: "description", const: "Post tweets to Twitter/X. Provide the tweet text to be posted." }
+        { name: "fields", const: "postTweet" }
+      ]
+    )
 } 
 
     

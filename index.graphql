@@ -6,6 +6,7 @@ schema
       "tools.graphql"
       "youtube_transcript/index.graphql"
       "solana_tracker/index.graphql"
+      "twitter/index.graphql"
     ]
   ) {
   query: Query

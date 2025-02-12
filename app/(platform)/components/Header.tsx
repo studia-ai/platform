@@ -1,6 +1,8 @@
 "use client";
 
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+import { SignOutButton, UserButton as ClerkUserButton } from "@clerk/nextjs";
 import { Button } from "@/app/(platform)/components/ui/button";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useNavigation } from "@/lib/context/navigation";
@@ -11,6 +13,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/app/(platform)/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
+import { WalletButton } from "./WalletButton";
 
 export default function Header() {
   const { setIsMobileNavOpen } = useNavigation();
@@ -76,10 +79,13 @@ export default function Header() {
           </Button>
         </div>
 
-        <UserButton></UserButton>
+        <div className="flex items-center gap-4">
+          <DynamicWidget 
+            variant="modal"
+          />
+          <ClerkUserButton />
+        </div>
       </div>
     </header>
-
-
   );
 }

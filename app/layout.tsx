@@ -1,9 +1,10 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/providers/theme-providder";
 import { ConvexClientProvider } from "@/app/(platform)/components/ConvexClientProvider";
+import { ClientProviders } from "@/app/(platform)/components/ClientProviders";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,30 +19,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Check if the current path includes platform
-  const isPlatform = typeof window !== 'undefined' && window.location.pathname.includes('dashboard');
-
   return (
-    <ConvexClientProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn("antialiased", inter.className)}
-          suppressHydrationWarning
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme={isPlatform ? "light" : "system"}
-            enableSystem={!isPlatform}
-            disableTransitionOnChange
-          >
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("antialiased", inter.className)} suppressHydrationWarning>
+        <ConvexClientProvider>
+          <ClientProviders>
             <main className="bg-slate-100">
               <div data-marketing="true" className="relative h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
                 {children}
               </div>
             </main>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ConvexClientProvider>
+          </ClientProviders>
+        </ConvexClientProvider>
+      </body>
+    </html>
   );
 }

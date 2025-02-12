@@ -12,7 +12,9 @@
   "dependencies": {
     "@calcom/embed-react": "^1.5.2",
     "@clerk/clerk-react": "^5.21.0",
-    "@clerk/nextjs": "^6.9.6",
+    "@clerk/nextjs": "^6.11.2",
+    "@dynamic-labs/sdk-react-core": "^4.6.1",
+    "@dynamic-labs/solana": "^4.6.1",
     "@langchain/anthropic": "^0.3.11",
     "@langchain/community": "^0.3.22",
     "@langchain/core": "^0.3.27",
@@ -30,7 +32,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
-    "convex": "^1.17.4",
+    "convex": "^1.19.1",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.0.11",
     "i": "^0.3.7",
@@ -52,7 +54,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^20",
+    "@types/node": "^20.17.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
